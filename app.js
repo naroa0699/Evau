@@ -433,7 +433,18 @@ function updateAuthUI(user) {
 async function signInWithGoogle() {
   try {
     const provider = new firebase.auth.GoogleAuthProvider();
-    const result = await auth.signInWithPopup(provider);
+    await auth.signInWithRedirect(provider);
+  } catch (err) {
+    console.error('[Firebase] Error al iniciar sesión:', err);
+    showToast('Error al iniciar sesión con Google');
+  }
+}
+
+async function handleRedirectResult() {
+  try {
+    const result = await auth.getRedirectResult();
+    if (!result || !result.user) return;
+
     userId = result.user.uid;
     const doc = await db.collection('users').doc(userId).get();
     if (doc.exists && doc.data().state) {
@@ -487,6 +498,7 @@ function initTabs() {
       document.getElementById('panel-' + target).classList.add('active');
     });
   });
+  handleRedirectResult();
 }
 
 // ─── TOPICS ──────────────────────────────────────────────────────────────────
