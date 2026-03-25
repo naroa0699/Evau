@@ -46,46 +46,35 @@ const TOPICS = {
   dt: [
     {
       id: 'dt1', name: 'A. Fundamentos geométricos', items: [
-        {
-          title: 'Curso I', children: [
-            'Desarrollo histórico del dibujo técnico',
-            'Lugares geométricos y arco capaz',
-            'Proporcionalidad, equivalencia y semejanza',
-            'Triángulos, cuadriláteros y polígonos regulares',
-            'Tangencias básicas y curvas técnicas'
-          ]
-        },
-        {
-          title: 'Curso II', children: [
-            'Transformaciones geométricas: homología y afinidad',
-            'Potencia de un punto, eje radical y centro radical',
-            'Aplicaciones de potencia en tangencias',
-            'Curvas cónicas: elipse, hipérbola y parábola',
-            'Rectas tangentes a cónicas'
-          ]
-        },
+        { title: 'La geometría en la arquitectura e ingeniería desde la revolución industrial. Avances tecnológicos y técnicas digitales aplicadas a nuevas formas.' },
+        { title: 'Resolución de problemas geométrico-matemáticos: proporcionalidad y proporción áurea (aplicaciones), equivalencia de figuras planas.' },
+        { title: 'Potencia de un punto respecto a una circunferencia. Eje radical y centro radical. Aplicaciones en tangencias.' },
+        { title: 'Transformaciones geométricas: isométricas, isomórficas y anamórficas.' },
+        { title: 'Inversión: determinación de figuras inversas, aplicación a problemas de tangencias y problemas de Apolonio.' },
+        { title: 'Homología: determinación de elementos, trazado de figuras homólogas y aplicación en sistemas de representación.' },
+        { title: 'Afinidad: determinación de elementos, trazado de figuras afines y aplicación en sistemas de representación.' },
+        { title: 'Curvas cónicas: elipse, hipérbola y parábola.' },
+        { title: 'Curvas cónicas: origen, propiedades y métodos de construcción; trazado con y sin herramientas digitales; aplicaciones.' },
+        { title: 'Curvas cónicas: pertenencia de un punto, rectas tangentes e intersección con una recta.' },
+        { title: 'Curvas técnicas: hélices, curvas cíclicas y envolventes. Origen, trazado y aplicaciones.' },
       ], diff: 'high'
     },
     {
-      id: 'dt2', name: 'B. Geometría proyectiva', items: [
+      id: 'dt2', name: 'B. Fundamentos geométricos', items: [
         {
-          title: 'Curso I', children: [
-            'Diédrico: punto, recta y plano',
-            'Pertenencia, paralelismo y perpendicularidad',
-            'Intersecciones y distancias básicas',
-            'Axonométrico ortogonal y oblicuo (isométrica/caballera)',
-            'Planos acotados: fundamentos',
-            'Perspectiva cónica: fundamentos'
-          ]
-        },
-        {
-          title: 'Curso II', children: [
-            'Diédrico: abatimientos, giros y cambios de plano',
-            'Verdaderas magnitudes y secciones',
-            'Prismas, pirámides, cilindros y conos',
-            'Poliedros regulares: tetraedro, hexaedro y octaedro',
-            'Planos acotados: cubiertas y perfiles de terreno',
-            'Perspectiva cónica de sólidos desde vistas'
+          title: 'Sistemas de representación', children: [
+            'Sistema diédrico: representación de punto, recta y plano; recta de máxima pendiente e inclinación; intersecciones, paralelismo, perpendicularidad, distancias y verdadera magnitud de segmentos.',
+            'Sistema diédrico: figuras contenidas en planos, abatimientos y verdaderas magnitudes.',
+            'Sistema diédrico: ángulos entre rectas, planos y recta-plano; ángulos con planos de proyección y verdadera magnitud.',
+            'Sistema diédrico: giros y cambios de plano. Aplicaciones.',
+            'Sistema diédrico: representación de poliedros regulares (tetraedro, hexaedro y octaedro), desarrollos, posiciones características, secciones principales y otras secciones, e intersección con una recta.',
+            'Sistema diédrico: representación de prismas y pirámides, desarrollos, secciones planas y verdaderas magnitudes de la sección, e intersección con una recta.',
+            'Sistema diédrico: cuerpos de revolución rectos y oblicuos (cilindros y conos), representación de la esfera, secciones planas e intersección con una recta.',
+            'Sistema axonométrico ortogonal y oblicuo: triedro fundamental, triángulo de trazas y ejes, coeficientes de reducción.',
+            'Sistema axonométrico ortogonal y oblicuo: representación de figuras planas, intersecciones, circunferencia simplificada, sólidos/cuerpos geométricos, secciones planas e intersecciones.',
+            'Sistema axonométrico oblicuo: proyección cilíndrica oblicua.',
+            'Sistema de planos acotados: problemas de cubiertas sencillas y representación de perfiles/secciones de terreno a partir de curvas de nivel.',
+            'Perspectiva cónica: representación de sólidos y formas tridimensionales a partir de sus vistas.'
           ]
         },
       ], diff: 'high'
@@ -93,20 +82,11 @@ const TOPICS = {
     {
       id: 'dt3', name: 'C. Normalización y documentación gráfica', items: [
         {
-          title: 'Curso I', children: [
-            'Escalas numéricas y gráficas',
-            'Formatos y doblado de planos',
-            'Normas UNE e ISO',
-            'Líneas normalizadas y acotación'
-          ]
-        },
-        {
-          title: 'Curso II', children: [
-            'Croquis y planos de taller',
-            'Cortes, secciones y roturas',
-            'Perspectivas normalizadas',
-            'Planos de montaje: elaboración e interpretación',
-            'Documentación de proyecto colaborativo y sostenibilidad'
+          title: 'Normalización y proyectos', children: [
+            'Representación de cuerpos y piezas industriales sencillas con acotación normalizada. Croquis y planos de taller, de piezas y de conjuntos. Cortes, secciones, roturas y perspectivas normalizadas.',
+            'Diseño, ecología y sostenibilidad.',
+            'Proyectos en colaboración: fases de elaboración y documentación gráfica de un proyecto ingenieril o arquitectónico sencillo.',
+            'Planos de montaje sencillos: de situación, de montaje, de conjunto, de instalación, de detalle, de fabricación o de construcción. Elaboración e interpretación.'
           ]
         },
       ], diff: 'med'
@@ -114,17 +94,12 @@ const TOPICS = {
     {
       id: 'dt4', name: 'D. Sistemas CAD', items: [
         {
-          title: 'Curso I', children: [
-            'Aplicaciones vectoriales 2D-3D',
-            'Modelado con primitivas',
-            'Fundamentos de diseño de piezas'
-          ]
-        },
-        {
-          title: 'Curso II', children: [
-            'Construcciones gráficas en soporte digital',
-            'Integración CAD en representación técnica',
-            'Trabajo colaborativo con herramientas CAD'
+          title: 'Aplicaciones CAD', children: [
+            'Aplicaciones CAD. Construcciones gráficas en soporte digital.',
+            'Aplicación de las TIC al diseño, edición, archivo y presentación de proyectos.',
+            'Dibujo vectorial 2D: dibujo y edición, creación de bloques y visibilidad de capas.',
+            'Dibujo vectorial 3D: inserción y edición de sólidos, galerías y bibliotecas de modelos, texturas.',
+            'Selección de encuadre, iluminación y punto de vista.'
           ]
         },
       ], diff: 'low'
