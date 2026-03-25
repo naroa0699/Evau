@@ -1308,3 +1308,69 @@ nav.tabs::-webkit-scrollbar { display: none; }
 }
 
 ::selection { background: rgba(226,109,92,0.2); color: var(--espresso); }
+
+/* ══ AUTH ═════════════════════════════════════════════ */
+.header-auth {
+  display: flex;
+  align-items: center;
+}
+
+.btn-google {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  color: #3d2a2d;
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all 0.18s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.btn-google:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+}
+
+.user-info {
+  display: none;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-photo {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--wine-light);
+  object-fit: cover;
+}
+
+#user-name {
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--cream);
+}
+
+.btn-logout {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.25);
+  color: var(--wine-light);
+  font-family: 'Jost', sans-serif;
+  font-size: 11px;
+  padding: 5px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.btn-logout:hover {
+  background: rgba(255,255,255,0.1);
+  color: var(--cream);
+}
