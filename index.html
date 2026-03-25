@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EVAU 2026 — Planificador</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600&family=Jost:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── LOADING OVERLAY ── */
+    #fb-loading {
+      position: fixed; inset: 0; z-index: 9999;
+      background: #fdf8f2;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 18px;
+      transition: opacity 0.4s ease;
+    }
+    #fb-loading.hidden { opacity: 0; pointer-events: none; }
+    #fb-loading h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px; color: #472d30;
+    }
+    #fb-loading p {
+      font-family: 'Jost', sans-serif;
+      font-size: 13px; color: rgba(71,45,48,0.55);
+      letter-spacing: 1px;
+    }
+    .fb-spinner {
+      width: 36px; height: 36px;
+      border: 3px solid #e8eadb;
+      border-top-color: #723d46;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── CONFIG BANNER (visible si falta config) ── */
+    #config-banner {
+      display: none;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 9998;
+      background: #e26d5c; color: white;
+      font-family: 'Jost', sans-serif; font-size: 13px;
+      padding: 10px 24px;
+      text-align: center;
+    }
+    #config-banner a { color: white; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<!-- ══ LOADING OVERLAY ══ -->
+<div id="fb-loading">
+  <div class="fb-spinner"></div>
+  <h2>EVAU <em style="font-style:italic;color:#c45444">2026</em></h2>
+  <p>Conectando con Firebase…</p>
+</div>
+
+<!-- ══ CONFIG BANNER (solo se muestra si el config es el placeholder) ══ -->
+<div id="config-banner">
+  ⚠️ Falta el Firebase Config en <code>app.js</code> —
+  <a href="https://console.firebase.google.com" target="_blank">ve a la consola</a>
+  y pega tus credenciales donde indica el comentario.
+</div>
+
+<div class="app">
+
+  <!-- ══ HEADER FIJO ══ -->
+  <header>
+    <div class="header-brand">
+      <h1>EVAU <em>2026</em></h1>
+      <p>Dibujo Técnico II · Tecnología e Ingeniería II</p>
+    </div>
+
+    <div class="countdown-inline">
+      <span class="cd-label">Examen en</span>
+      <span class="cd-block"><span class="cd-num" id="cd-days">--</span><span class="cd-unit">d</span></span>
+      <span class="cd-sep">:</span>
+      <span class="cd-block"><span class="cd-num" id="cd-hours">--</span><span class="cd-unit">h</span></span>
+      <span class="cd-sep">:</span>
+      <span class="cd-block"><span class="cd-num" id="cd-mins">--</span><span class="cd-unit">m</span></span>
+      <span class="cd-sep">:</span>
+      <span class="cd-block"><span class="cd-num cd-secs" id="cd-secs">--</span><span class="cd-unit">s</span></span>
+    </div>
+
+    <div class="header-stats">
+      <div class="hstat">
+        <div class="hstat-val" id="stat-total">0%</div>
+        <div class="hstat-label">Progreso</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val green" id="stat-done">0</div>
+        <div class="hstat-label">Hechos</div>
+      </div>
+      <div class="hstat">
+        <div class="hstat-val terracota" id="stat-remain">0</div>
+        <div class="hstat-label">Quedan</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══ PESTAÑAS ══ -->
+  <nav class="tabs">
+    <button class="tab active" data-tab="temario">
+      <span class="tab-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="24" height="24" fill="currentColor"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,20V120H40V60Zm0,140H40V136H216Z"/></svg></span>
+      <span class="tab-label">Temario</span>
+    </button>
+    <button class="tab" data-tab="estudio">
+      <span class="tab-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="24" height="24" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Zm52-88a12,12,0,1,1-12-12A12,12,0,0,1,180,128Zm-44-44a12,12,0,1,1-12-12A12,12,0,0,1,136,84Zm0,88a12,12,0,1,1-12-12A12,12,0,0,1,136,172ZM92,128a12,12,0,1,1-12-12A12,12,0,0,1,92,128Z"/></svg></span>
+      <span class="tab-label">Pomodoro &amp; Diario</span>
+    </button>
+    <button class="tab" data-tab="planificacion">
+      <span class="tab-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="24" height="24" fill="currentColor"><path d="M208,32H176V24a8,8,0,0,0-16,0v8H96V24a8,8,0,0,0-16,0v8H48A16,16,0,0,0,32,48V208a16,16,0,0,0,16,16H208a16,16,0,0,0,16-16V48A16,16,0,0,0,208,32ZM80,48V56a8,8,0,0,0,16,0V48h64v8a8,8,0,0,0,16,0V48h32V80H48V48Zm128,160H48V96H208Z"/></svg></span>
+      <span class="tab-label">Planificación</span>
+    </button>
+    <button class="tab" data-tab="practica">
+      <span class="tab-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="24" height="24" fill="currentColor"><path d="M234.14,70.14a8,8,0,0,0-11.28,0L180,112.74V72a8,8,0,0,0-8-8H40a8,8,0,0,0-8,8v96a8,8,0,0,0,8,8h40.74l17.86,17.86a8,8,0,0,0,5.64,2.34,8,8,0,0,0,5.64-13.66L97.66,168H144v34.34l-6.86-6.86a8,8,0,0,0-11.28,11.28l18.34,18.34a8,8,0,0,0,11.28,0l18.34-18.34a8,8,0,0,0-11.28-11.28L160,202.34V168h16a8,8,0,0,0,8-8V72a8,8,0,0,0-8-8H48v88h96V112a8,8,0,0,0-2.34-5.66l42.6-42.6A8,8,0,0,0,234.14,70.14Z"/></svg></span>
+      <span class="tab-label">Práctica</span>
+    </button>
+    <button class="tab" data-tab="recursos">
+      <span class="tab-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="24" height="24" fill="currentColor"><path d="M216,40H128V24a8,8,0,0,0-16,0V40H40A16,16,0,0,0,24,56V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40ZM40,56h96V80H40Zm0,160V96H216v120Z"/></svg></span>
+      <span class="tab-label">Recursos</span>
+    </button>
+  </nav>
+
+  <!-- ══════════════════════════════════ -->
+  <!-- TAB: TEMARIO                       -->
+  <!-- ══════════════════════════════════ -->
+  <section class="panel active" id="panel-temario">
+    <div class="panel-intro">
+      <h2>Temario completo</h2>
+      <p>Haz clic en cada tema cuando lo hayas dominado. Los temas se ordenan por dificultad.</p>
+    </div>
+    <div class="two-col">
+
+      <div class="card">
+        <div class="card-header dt">
+          <span class="card-title">Dibujo Técnico II</span>
+          <span class="badge badge-sage" id="badge-dt">0/10</span>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-bar">
+            <div class="progress-fill fill-sage" id="fill-dt" style="width:0%"></div>
+          </div>
+          <span class="progress-pct" id="pct-dt">0%</span>
+        </div>
+        <div class="topics" id="topics-dt"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header ti">
+          <span class="card-title">Tecnología e Ingeniería II</span>
+          <span class="badge badge-terra" id="badge-ti">0/10</span>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-bar">
+            <div class="progress-fill fill-terra" id="fill-ti" style="width:0%"></div>
+          </div>
+          <span class="progress-pct" id="pct-ti">0%</span>
+        </div>
+        <div class="topics" id="topics-ti"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════ -->
+  <!-- TAB: POMODORO + DIARIO             -->
+  <!-- ══════════════════════════════════ -->
+  <section class="panel" id="panel-estudio">
+    <div class="panel-intro">
+      <h2>Sesión de estudio</h2>
+      <p>Usa el temporizador Pomodoro y anota todo lo que trabajas cada día.</p>
+    </div>
+    <div class="two-col">
+
+      <div class="card">
+        <div class="card-header timer-h">
+          <span class="card-title">Temporizador Pomodoro</span>
+          <span class="badge badge-wine" id="pomodoro-counter">Sesión 1</span>
+        </div>
+        <div class="timer-display">
+          <div class="timer-modes">
+            <button class="mode-btn active" data-mode="pomodoro">25 min · Enfoque</button>
+            <button class="mode-btn" data-mode="short">5 min · Descanso</button>
+            <button class="mode-btn" data-mode="long">15 min · Descanso largo</button>
+          </div>
+          <div class="timer-ring-wrap">
+            <svg class="timer-ring" width="180" height="180" viewBox="0 0 180 180">
+              <circle class="ring-track" cx="90" cy="90" r="78"/>
+              <circle class="ring-progress" id="ring-fill" cx="90" cy="90" r="78"
+                stroke-dasharray="490.09" stroke-dashoffset="0"/>
+            </svg>
+            <div class="timer-center">
+              <div class="timer-time" id="timer-display">25:00</div>
+              <div class="timer-mode-label" id="timer-mode-label">Enfoque</div>
+            </div>
+          </div>
+          <div class="timer-actions">
+            <button class="btn btn-terra" id="btn-start">Iniciar</button>
+            <button class="btn btn-ghost" id="btn-reset">Reset</button>
+          </div>
+          <div class="session-dots-wrap">
+            <p class="session-label" id="pomodoro-counter-label">Pomodoros completados hoy</p>
+            <div class="session-dots" id="session-dots">
+              <div class="dot" id="dot0"></div>
+              <div class="dot" id="dot1"></div>
+              <div class="dot" id="dot2"></div>
+              <div class="dot" id="dot3"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header log-h">
+          <span class="card-title">Diario de Estudio</span>
+          <div style="display:flex;gap:8px;align-items:center">
+            <span class="badge badge-wine" id="badge-log">0 entradas</span>
+            <span class="cap-counter" id="log-cap-counter">0/200</span>
+          </div>
+        </div>
+        <div class="input-row log-input-row">
+          <select class="field-select" id="log-subject">
+            <option value="dt">DT-II</option>
+            <option value="ti">TI-II</option>
+            <option value="gen">General</option>
+          </select>
+          <select class="field-select" id="log-topic" aria-label="Parte del temario estudiada"></select>
+          <input class="field-text" id="log-input" placeholder="¿Qué has estudiado hoy?…" maxlength="120">
+          <button class="btn btn-wine" id="log-add">+</button>
+          <button class="btn btn-ghost btn-sm" id="log-clear">Limpiar</button>
+        </div>
+        <div class="log-entries" id="log-entries">
+          <div class="empty-state" id="log-empty">Todavía no hay entradas. ¡Empieza a estudiar!</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════ -->
+  <!-- TAB: PLANIFICACIÓN                 -->
+  <!-- ══════════════════════════════════ -->
+  <section class="panel" id="panel-planificacion">
+    <div class="panel-intro">
+      <h2>Planificación semanal</h2>
+      <p>Tu plan recomendado para hoy y los objetivos de la semana en curso.</p>
+    </div>
+    <div class="two-col">
+
+      <div class="card">
+        <div class="card-header plan-h">
+          <span class="card-title">Plan de Hoy</span>
+          <span class="badge badge-sage" id="pace-risk">Ritmo OK</span>
+        </div>
+        <div class="pace-summary" id="pace-msg">Calculando…</div>
+        <div class="plan-list" id="plan-list"></div>
+        <div class="card-actions">
+          <button class="btn btn-ghost btn-sm" id="plan-refresh">↻ Actualizar plan</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header goals-h">
+          <span class="card-title">Objetivos Semanales</span>
+          <span class="badge badge-terra" id="week-key-label">—</span>
+        </div>
+        <div class="goals-grid">
+          <label class="goal-field">
+            <span>Temas DT</span>
+            <input class="field-number" id="goal-dt" type="number" min="0" max="20">
+          </label>
+          <label class="goal-field">
+            <span>Temas TI</span>
+            <input class="field-number" id="goal-ti" type="number" min="0" max="20">
+          </label>
+          <label class="goal-field">
+            <span>Simulacros</span>
+            <input class="field-number" id="goal-sim" type="number" min="0" max="10">
+          </label>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-terra" id="goals-save">Guardar objetivos</button>
+        </div>
+        <div class="goal-progress-bars" id="goal-progress"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════ -->
+  <!-- TAB: PRÁCTICA                      -->
+  <!-- ══════════════════════════════════ -->
+  <section class="panel" id="panel-practica">
+    <div class="panel-intro">
+      <h2>Práctica activa</h2>
+      <p>Registra errores para repaso espaciado y simula las condiciones reales del examen.</p>
+      <div class="practice-overview">
+        <div class="practice-kpi">
+          <span class="practice-kpi-label">Repasos hoy</span>
+          <span class="practice-kpi-value" id="practice-due">0</span>
+        </div>
+        <div class="practice-kpi">
+          <span class="practice-kpi-label">En seguimiento</span>
+          <span class="practice-kpi-value" id="practice-active">0</span>
+        </div>
+        <div class="practice-kpi">
+          <span class="practice-kpi-label">Media simulacros</span>
+          <span class="practice-kpi-value" id="practice-avg">--</span>
+        </div>
+      </div>
+    </div>
+    <div class="two-col">
+
+      <div class="card">
+        <div class="card-header err-h">
+          <span class="card-title">Cuaderno de Errores</span>
+          <span class="badge badge-wine" id="due-count">0 hoy</span>
+        </div>
+        <div class="input-row">
+          <select class="field-select" id="mistake-subject">
+            <option value="dt">DT-II</option>
+            <option value="ti">TI-II</option>
+            <option value="gen">General</option>
+          </select>
+          <input class="field-text" id="mistake-input" placeholder="Error o duda a revisar…" maxlength="140">
+          <button class="btn btn-wine" id="mistake-add">+</button>
+        </div>
+        <div class="practice-guide">
+          <div class="guide-step"><strong>1.</strong> Escribe el fallo concreto.</div>
+          <div class="guide-step"><strong>2.</strong> Repasa cuando salga en pendientes.</div>
+          <div class="guide-step"><strong>3.</strong> Marca Hecho para espaciar el siguiente repaso.</div>
+        </div>
+        <p class="section-mini-label">Repasos pendientes hoy</p>
+        <div class="mistake-list" id="mistake-due"></div>
+      </div>
+
+      <div class="card">
+        <div class="card-header mock-h">
+          <span class="card-title">Modo Simulacro</span>
+          <span class="badge badge-sage" id="mock-count">0 realizados</span>
+        </div>
+
+        <div class="mock-top">
+          <div>
+            <p class="section-mini-label">Duración</p>
+            <select class="field-select" id="mock-duration">
+              <option value="90">90 minutos</option>
+              <option value="120">120 minutos</option>
+            </select>
+          </div>
+          <div class="mock-timer-display" id="mock-display">90:00</div>
+        </div>
+
+        <div class="card-actions">
+          <button class="btn btn-sage" id="mock-start">Iniciar simulacro</button>
+          <button class="btn btn-ghost" id="mock-reset">Reset</button>
+        </div>
+
+        <div class="mock-score-row">
+          <input class="field-number" id="mock-score" type="number" min="0" max="10" step="0.1" placeholder="Nota (0–10)">
+          <button class="btn btn-terra" id="mock-complete">Registrar nota</button>
+        </div>
+
+        <div class="mock-history" id="mock-stats"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════ -->
+  <!-- TAB: RECURSOS                      -->
+  <!-- ══════════════════════════════════ -->
+  <section class="panel" id="panel-recursos">
+    <div class="panel-intro">
+      <h2>Recursos y exámenes</h2>
+      <p>Banco de exámenes PAU, checklist del día del examen y copia de seguridad de tus datos.</p>
+    </div>
+
+    <div class="three-col-resources">
+
+      <div class="card card-wide">
+        <div class="card-header bank-h">
+          <span class="card-title">Banco de Exámenes PAU</span>
+          <span class="badge badge-terra" id="bank-count">0 resultados</span>
+        </div>
+        <div class="bank-filters">
+          <select class="field-select" id="bank-subject">
+            <option value="all">Todas las materias</option>
+            <option value="dt">Dibujo Técnico II</option>
+            <option value="ti">Tecnología e Ingeniería II</option>
+          </select>
+          <select class="field-select" id="bank-year">
+            <option value="all">Todos los años</option>
+            <option value="2026">2026</option>
+            <option value="2025">2025</option>
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+            <option value="2021">2021</option>
+          </select>
+          <select class="field-select" id="bank-convocatoria">
+            <option value="all">Todas las convocatorias</option>
+            <option value="ordinaria">Ordinaria</option>
+            <option value="extraordinaria">Extraordinaria</option>
+            <option value="coincidencias">Coincidencias</option>
+            <option value="modelo">Modelo</option>
+          </select>
+        </div>
+        <div class="bank-grid" id="bank-list"></div>
+      </div>
+
+      <div class="col-stack">
+
+        <div class="card">
+          <div class="card-header check-h">
+            <span class="card-title">Checklist Examen</span>
+            <span class="badge badge-wine" id="check-progress">0/5</span>
+          </div>
+          <div class="checklist" id="checklist-wrap">
+            <label class="check-item"><input type="checkbox" class="exam-check" data-check="dni"><span>DNI preparado</span></label>
+            <label class="check-item"><input type="checkbox" class="exam-check" data-check="resguardo"><span>Resguardo / convocatoria</span></label>
+            <label class="check-item"><input type="checkbox" class="exam-check" data-check="material"><span>Material permitido</span></label>
+            <label class="check-item"><input type="checkbox" class="exam-check" data-check="ruta"><span>Ruta y hora de salida</span></label>
+            <label class="check-item"><input type="checkbox" class="exam-check" data-check="descanso"><span>Cena y descanso planificados</span></label>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-header backup-h">
+            <span class="card-title">Copia de Seguridad</span>
+          </div>
+          <p class="backup-desc">Exporta todos tus datos o restaura desde un backup anterior.</p>
+          <div class="card-actions">
+            <button class="btn btn-wine" id="backup-export">↓ Exportar datos</button>
+            <button class="btn btn-ghost" id="backup-import">↑ Importar</button>
+          </div>
+          <input type="file" id="backup-file" accept="application/json" hidden>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+</div><!-- /app -->
+
+<div class="toast" id="notif"></div>
+
+<!-- ══ FIREBASE SDK (compat v10) ══ -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+<script src="app.js"></script>
+</body>
+</html>
