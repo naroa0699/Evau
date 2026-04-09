@@ -45,50 +45,34 @@ function firebaseReady() {
 const TOPICS = {
   dt: [
     {
-      id: 'dt1', name: 'Geometría Métrica · Fundamentos', items: [
+      id: 'dt1', name: 'Geometría Plana', items: [
         {
-          title: 'Geometría Métrica.', children: [
+          title: 'Geometría Métrica. Fundamentos', children: [
             'Elementos: punto, recta plano',
             'Paralelismo',
             'Perpendicularidad',
             'Ángulos: unidades, relaciones, tipos y construcciones',
             'Rectificaciones de arcos',
             'Ángulos de la circunferencia. Arco capaz',
-            'Potencia y eje radical'
-          ]
-        },
-        {
-          title: 'Operaciones con segmentos.', children: [
+            'Potencia y eje radical',
             'Proporcionalidad y Teorema de Tales.',
             'Cuarta, tercera y media proporcional.',
             'Producto, división, cuadrado y raíz de segmentos',
             'Sección Áurea'
           ]
         },
-      ], diff: 'high'
-    },
-    {
-      id: 'dt2', name: 'Geometría Métrica · Construcciones', items: [
         {
-          title: 'Polígonos, definición y tipos', children: [
+          title: 'Geometría Métrica. Construcciones', children: [
             'Triángulos',
             'Cuadriláteros',
             'Polígonos regulares',
-            'Polígonos estrellados'
-          ]
-        },
-        {
-          title: 'Transformaciones geométricas en el plano', children: [
+            'Polígonos estrellados',
             'Igualdad, traslación, simetría y giro',
             'Homotecia',
             'Semejanza y escalas',
             'Equivalencias',
             'Homología y afinidad',
-            'Inversión'
-          ]
-        },
-        {
-          title: 'Tangencias', children: [
+            'Inversión',
             'Concepto y clasificación',
             'Rectas tangentes a circunferencias',
             'Circunferencias tangentes a rectas y circunferencias',
@@ -97,19 +81,11 @@ const TOPICS = {
             'Circunferencias tangentes a circunferencia y recta por puntos',
             'Circunferencias tangentes a dos circunferencias dadas por puntos exteriores',
             'Circunferencias tangentes a tres circunferencias dadas',
-            'Enlaces'
-          ]
-        },
-        {
-          title: 'Curvas Técnicas', children: [
+            'Enlaces',
             'Óvalo, ovoide y espirales',
             'Hélices',
             'Curvas trigonométricas',
-            'Curvas cíclicas'
-          ]
-        },
-        {
-          title: 'Curvas Cónicas. Definición y elementos', children: [
+            'Curvas cíclicas',
             'Elipse',
             'Parábola',
             'Hipérbola'
