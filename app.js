@@ -45,61 +45,233 @@ function firebaseReady() {
 const TOPICS = {
   dt: [
     {
-      id: 'dt1', name: 'A. Fundamentos geométricos', items: [
-        { title: 'La geometría en la arquitectura e ingeniería desde la revolución industrial. Avances tecnológicos y técnicas digitales aplicadas a nuevas formas.' },
-        { title: 'Resolución de problemas geométrico-matemáticos: proporcionalidad y proporción áurea (aplicaciones), equivalencia de figuras planas.' },
-        { title: 'Potencia de un punto respecto a una circunferencia. Eje radical y centro radical. Aplicaciones en tangencias.' },
-        { title: 'Transformaciones geométricas: isométricas, isomórficas y anamórficas.' },
-        { title: 'Inversión: determinación de figuras inversas, aplicación a problemas de tangencias y problemas de Apolonio.' },
-        { title: 'Homología: determinación de elementos, trazado de figuras homólogas y aplicación en sistemas de representación.' },
-        { title: 'Afinidad: determinación de elementos, trazado de figuras afines y aplicación en sistemas de representación.' },
-        { title: 'Curvas cónicas: elipse, hipérbola y parábola.' },
-        { title: 'Curvas cónicas: origen, propiedades y métodos de construcción; trazado con y sin herramientas digitales; aplicaciones.' },
-        { title: 'Curvas cónicas: pertenencia de un punto, rectas tangentes e intersección con una recta.' },
-        { title: 'Curvas técnicas: hélices, curvas cíclicas y envolventes. Origen, trazado y aplicaciones.' },
-      ], diff: 'high'
-    },
-    {
-      id: 'dt2', name: 'B. Fundamentos geométricos', items: [
+      id: 'dt1', name: 'Geometría Métrica · Fundamentos', items: [
         {
-          title: 'Sistemas de representación', children: [
-            'Sistema diédrico: representación de punto, recta y plano; recta de máxima pendiente e inclinación; intersecciones, paralelismo, perpendicularidad, distancias y verdadera magnitud de segmentos.',
-            'Sistema diédrico: figuras contenidas en planos, abatimientos y verdaderas magnitudes.',
-            'Sistema diédrico: ángulos entre rectas, planos y recta-plano; ángulos con planos de proyección y verdadera magnitud.',
-            'Sistema diédrico: giros y cambios de plano. Aplicaciones.',
-            'Sistema diédrico: representación de poliedros regulares (tetraedro, hexaedro y octaedro), desarrollos, posiciones características, secciones principales y otras secciones, e intersección con una recta.',
-            'Sistema diédrico: representación de prismas y pirámides, desarrollos, secciones planas y verdaderas magnitudes de la sección, e intersección con una recta.',
-            'Sistema diédrico: cuerpos de revolución rectos y oblicuos (cilindros y conos), representación de la esfera, secciones planas e intersección con una recta.',
-            'Sistema axonométrico ortogonal y oblicuo: triedro fundamental, triángulo de trazas y ejes, coeficientes de reducción.',
-            'Sistema axonométrico ortogonal y oblicuo: representación de figuras planas, intersecciones, circunferencia simplificada, sólidos/cuerpos geométricos, secciones planas e intersecciones.',
-            'Sistema axonométrico oblicuo: proyección cilíndrica oblicua.',
-            'Sistema de planos acotados: problemas de cubiertas sencillas y representación de perfiles/secciones de terreno a partir de curvas de nivel.',
-            'Perspectiva cónica: representación de sólidos y formas tridimensionales a partir de sus vistas.'
+          title: 'Geometría Métrica.', children: [
+            'Elementos: punto, recta plano',
+            'Paralelismo',
+            'Perpendicularidad',
+            'Ángulos: unidades, relaciones, tipos y construcciones',
+            'Rectificaciones de arcos',
+            'Ángulos de la circunferencia. Arco capaz',
+            'Potencia y eje radical'
+          ]
+        },
+        {
+          title: 'Operaciones con segmentos.', children: [
+            'Proporcionalidad y Teorema de Tales.',
+            'Cuarta, tercera y media proporcional.',
+            'Producto, división, cuadrado y raíz de segmentos',
+            'Sección Áurea'
           ]
         },
       ], diff: 'high'
     },
     {
-      id: 'dt3', name: 'C. Normalización y documentación gráfica', items: [
+      id: 'dt2', name: 'Geometría Métrica · Construcciones', items: [
         {
-          title: 'Normalización y proyectos', children: [
-            'Representación de cuerpos y piezas industriales sencillas con acotación normalizada. Croquis y planos de taller, de piezas y de conjuntos. Cortes, secciones, roturas y perspectivas normalizadas.',
-            'Diseño, ecología y sostenibilidad.',
-            'Proyectos en colaboración: fases de elaboración y documentación gráfica de un proyecto ingenieril o arquitectónico sencillo.',
-            'Planos de montaje sencillos: de situación, de montaje, de conjunto, de instalación, de detalle, de fabricación o de construcción. Elaboración e interpretación.'
+          title: 'Polígonos, definición y tipos', children: [
+            'Triángulos',
+            'Cuadriláteros',
+            'Polígonos regulares',
+            'Polígonos estrellados'
+          ]
+        },
+        {
+          title: 'Transformaciones geométricas en el plano', children: [
+            'Igualdad, traslación, simetría y giro',
+            'Homotecia',
+            'Semejanza y escalas',
+            'Equivalencias',
+            'Homología y afinidad',
+            'Inversión'
+          ]
+        },
+        {
+          title: 'Tangencias', children: [
+            'Concepto y clasificación',
+            'Rectas tangentes a circunferencias',
+            'Circunferencias tangentes a rectas y circunferencias',
+            'Circunferencias tangentes a rectas',
+            'Circunferencias tangentes entre sí pasando por puntos',
+            'Circunferencias tangentes a circunferencia y recta por puntos',
+            'Circunferencias tangentes a dos circunferencias dadas por puntos exteriores',
+            'Circunferencias tangentes a tres circunferencias dadas',
+            'Enlaces'
+          ]
+        },
+        {
+          title: 'Curvas Técnicas', children: [
+            'Óvalo, ovoide y espirales',
+            'Hélices',
+            'Curvas trigonométricas',
+            'Curvas cíclicas'
+          ]
+        },
+        {
+          title: 'Curvas Cónicas. Definición y elementos', children: [
+            'Elipse',
+            'Parábola',
+            'Hipérbola'
+          ]
+        },
+      ], diff: 'high'
+    },
+    {
+      id: 'dt3', name: 'Geometría Descriptiva · Sistema Diédrico', items: [
+        {
+          title: 'Diédrico. Fundamentos', children: [
+            'Fundamentos del sistema',
+            'Punto',
+            'Recta',
+            'Plano'
+          ]
+        },
+        {
+          title: 'Diédrico. Conceptos', children: [
+            'Intersecciones elementales',
+            'Paralelismo',
+            'Perpendicularidad',
+            'Distancias',
+            'Ángulos'
+          ]
+        },
+        {
+          title: 'Diédrico. Métodos', children: [
+            'Abatimientos',
+            'Cambios de plano',
+            'Giros'
+          ]
+        },
+        {
+          title: 'Diédrico. Superficies, secciones, desarrollo y transformada', children: [
+            'Tipos de superficies',
+            'Superficies radiadas. Representación',
+            'Representación del prisma',
+            'Representación de la pirámide',
+            'Representación del cilindro',
+            'Representación del cono',
+            'Superficies radiadas. Secciones',
+            'Sección del prisma',
+            'Sección de la pirámide',
+            'Sección del cilindro',
+            'Sección del cono',
+            'Superficies radiadas. Desarrollo y transformada',
+            'Desarrollo del prisma',
+            'Desarrollo de la pirámide',
+            'Desarrollo del cilindro',
+            'Desarrollo del cono',
+            'Poliedros regulares. Representación, secciones y desarrollo',
+            'Tetraedro',
+            'Hexaedro',
+            'Octaedro',
+            'Dodecaedro',
+            'Icosaedro',
+            'Superficies no regladas. Representación y secciones',
+            'Esfera',
+            'Toro'
+          ]
+        },
+        {
+          title: 'Sistema Diédrico. Intersecciones', children: [
+            'Intersección entre recta y superficie radiada',
+            'Intersección de rectas con la esfera',
+            'Métodos generales para el cálculo de intersecciones entre superficies',
+            'Métodos para el cálculo de intersecciones entre superficies de revolución'
+          ]
+        },
+      ], diff: 'high'
+    },
+    {
+      id: 'dt4', name: 'Sistema Axonométrico Ortogonal', items: [
+        {
+          title: 'Axonométrico. Fundamentos', children: [
+            'Elementos. Isométrica, dimétrica, trimétrica',
+            'Escalas gráficas y reducciones',
+            'Punto',
+            'Recta. Determinación y tipos',
+            'Plano. Determinación y tipos'
+          ]
+        },
+        {
+          title: 'Axonométrico. Procedimientos', children: [
+            'Intersecciones. Trazas ordinarias',
+            'Distancias y abatimientos',
+            'Perpendicularidad y verdadera magnitud',
+            'Representación de figuras planas y cuerpos'
           ]
         },
       ], diff: 'med'
     },
     {
-      id: 'dt4', name: 'D. Sistemas CAD', items: [
+      id: 'dt5', name: 'Caballera y Planos Acotados', items: [
         {
-          title: 'Aplicaciones CAD', children: [
-            'Aplicaciones CAD. Construcciones gráficas en soporte digital.',
-            'Aplicación de las TIC al diseño, edición, archivo y presentación de proyectos.',
-            'Dibujo vectorial 2D: dibujo y edición, creación de bloques y visibilidad de capas.',
-            'Dibujo vectorial 3D: inserción y edición de sólidos, galerías y bibliotecas de modelos, texturas.',
-            'Selección de encuadre, iluminación y punto de vista.'
+          title: 'Perspectiva Caballera · Fundamentos', children: [
+            'Elementos y fundamentos',
+            'Escalas gráficas y reducciones',
+            'Punto',
+            'Recta. Determinación y tipos',
+            'Plano. Determinación y tipos'
+          ]
+        },
+        {
+          title: 'Perspectiva Caballera · Procedimientos', children: [
+            'Intersección recta-plano',
+            'Abatimientos',
+            'Perpendicularidad'
+          ]
+        },
+        {
+          title: 'Sistema Acotado · Fundamentos', children: [
+            'Punto',
+            'Recta. Pendiente e intervalo',
+            'Plano. Determinación, tipos'
+          ]
+        },
+        {
+          title: 'Sistema Acotado · Procedimientos', children: [
+            'Intersecciones. Arista y gotera',
+            'Paralelismo',
+            'Perpendicularidad',
+            'Abatimientos. Punto, recta y figura plana',
+            'Distancias',
+            'Proyección de cuerpos'
+          ]
+        },
+      ], diff: 'med'
+    },
+    {
+      id: 'dt6', name: 'Perspectiva Cónica y Sombras', items: [
+        {
+          title: 'Sistema Cónico. Fundamentos', children: [
+            'Elementos',
+            'Punto',
+            'Recta',
+            'Plano',
+            'Intersecciones'
+          ]
+        },
+        {
+          title: 'Sistema Cónico. Variables y métodos', children: [
+            'Método directo',
+            'Método de las prolongaciones',
+            'Método de las distancias métricas',
+            'Método de las proyecciones visuales',
+            'Método de coordenadas',
+            'Perspectiva cónica. Pautas'
+          ]
+        },
+        {
+          title: 'Sombras en los Sistemas de Representación', children: [
+            'Sombras. Generalidades',
+            'Sombras en Sistema Diédrico · Foco propio',
+            'Sombras en Sistema Diédrico · Foco impropio',
+            'Sombras en Sistema Axonométrico Ortogonal · Foco propio',
+            'Sombras en Sistema Axonométrico Ortogonal · Foco impropio',
+            'Sombras en Sistema Axonométrico Oblicuo · Foco impropio',
+            'Sombras en Sistema Acotado · Foco impropio',
+            'Sombras en Sistema Cónico · Foco propio',
+            'Sombras en Sistema Cónico · Foco impropio'
           ]
         },
       ], diff: 'low'
@@ -478,8 +650,8 @@ function initTabs() {
 
 // ─── TOPICS ──────────────────────────────────────────────────────────────────
 
-const openTopics = new Set();
-const openSubtopics = new Set();
+const openTopics = new Set(['dt-dt1']);
+const openSubtopics = new Set(['dt-dt1-0']);
 
 function splitInlineSubitems(text) {
   return String(text || '').split('·').map(s => s.trim()).filter(Boolean);
@@ -556,6 +728,13 @@ function refreshLogTopicSelect() {
       unitOption.value = topic.id + '::' + idx;
       unitOption.textContent = '↳ ' + item.title;
       topicEl.appendChild(unitOption);
+
+      item.children.forEach((child, j) => {
+        const childOption = document.createElement('option');
+        childOption.value = topic.id + '::' + idx + '::' + j;
+        childOption.textContent = '↳↳ ' + child;
+        topicEl.appendChild(childOption);
+      });
     });
   });
 
